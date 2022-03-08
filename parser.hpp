@@ -5,6 +5,8 @@
 class Parser
 {
     public:
+    int x;
+    int y;
     Parser()
     {
         std::string str;
@@ -17,6 +19,9 @@ class Parser
     {
         Expr();
         PrintTranslatedString();
+
+        Calculate();
+
     }
     private:
     char lookAhead;//char that is being handled
@@ -29,6 +34,7 @@ class Parser
     void PrintTranslatedString()
     {
         std::cout<<translated<<std::endl;
+
     }
     std::string ErrorMessage(char lookAhead)
     {
@@ -114,5 +120,83 @@ class Parser
             }
             else return;
         }  
+    }
+    void Calculate()
+    {
+        while(true)
+        {
+            for (int i = 0; i < translated.length(); i++)
+            {
+                if (!isdigit(translated[i]))
+                {
+                   if(translated[i] == '+')
+                   {
+                      Addition(i);
+                    }
+                    if(translated[i] == '-')
+                    {
+                        Subtraction(i);
+                    }
+                    if(translated[i] == '*')
+                    {
+                        Multiplication(i);
+                    }
+                    if(translated[i] == '/')
+                    {
+                        Division(i);
+                    }
+                }
+
+                if (i >= translated.length())
+                {
+                    return;
+                }
+                
+            } 
+        }
+    }
+    void Addition(int pos)
+    {
+        x = translated[pos-2] - 48;
+        y = translated[pos-1] - 48;
+        
+        std::cout<<x<<" + "<<y<<" = "<<x+y<<std::endl;
+        translated.erase(pos-2,3);
+        
+        translated.insert(pos-2, std::to_string(x+y));
+        std::cout<<translated<<std::endl;
+    }
+    void Subtraction(int pos)
+    {
+        x = translated[pos-2] - 48;
+        y = translated[pos-1] - 48;
+        
+        std::cout<<x<<" - "<<y<<" = "<<x-y<<std::endl;
+        translated.erase(pos-2,3);
+        
+        translated.insert(pos-2, std::to_string(x-y));
+        std::cout<<translated<<std::endl;
+    }
+    void Multiplication(int pos)
+    {
+        x = translated[pos-2] - 48;
+        y = translated[pos-1] - 48;
+        
+        std::cout<<x<<" * "<<y<<" = "<<x*y<<std::endl;
+        translated.erase(pos-2,3);
+        
+        translated.insert(pos-2, std::to_string(x*y));
+        std::cout<<translated<<std::endl;
+    }
+    void Division(int pos)
+    {
+        x = translated[pos-2] - 48;
+        y = translated[pos-1] - 48;
+        
+        std::cout<<x<<" / "<<y<<" = "<<x/y<<std::endl;
+        translated.erase(pos-2,3);
+        
+        translated.insert(pos-2, std::to_string(x/y));
+        std::cout<<translated<<std::endl;
     }
 };
