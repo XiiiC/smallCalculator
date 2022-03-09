@@ -6,7 +6,7 @@ if you have the general linux wsl prequesits, it should be enough,
 if anything is missing install it, 
 after that build it:
 ```
-git clone https://github.com/XiiiC/smallParser
+git clone https://github.com/XiiiC/smallCalculator
 cd smallCalculator
 g++ -std=c++14 parser.hpp main.cpp -o parser
 ./parser
